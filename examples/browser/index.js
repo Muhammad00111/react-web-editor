@@ -3,6 +3,8 @@ import React from 'react';
 import { render } from 'react-dom';
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import MonacoEditor from 'react-monaco-editor';
+import Header from './component/header';
+import Multi from './component/mutiple';
 /* eslint-enable import/no-extraneous-dependencies */
 
 // Using with webpack
@@ -114,6 +116,7 @@ class AnotherEditor extends React.Component { // eslint-disable-line react/no-mu
       }
     };
     return (
+
       <div>
         <MonacoEditor
           width="800"
@@ -131,6 +134,7 @@ class AnotherEditor extends React.Component { // eslint-disable-line react/no-mu
 // eslint-disable-next-line react/no-multi-comp
 const App = () => (
   <div>
+    <Header />
     <h2>Monaco Editor Sample (controlled mode)</h2>
     <CodeEditor />
     <hr />

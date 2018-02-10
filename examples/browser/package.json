@@ -32,9 +32,16 @@
     "webpack-dev-server": "^2.9.4"
   },
   "dependencies": {
+    "@kadira/storybook": "^2.35.3",
+    "@khanacademy/react-multi-select": "^0.2.0",
+    "bootstrap": "^4.0.0",
+    "create-react-class": "^15.6.3",
+    "jquery": "^3.2.1",
     "monaco-editor": "^0.10.0",
+    "prop-types": "^15.6.0",
     "react": "~16.0.0",
     "react-dom": "^16.0.0",
-    "react-monaco-editor": "latest"
+    "react-monaco-editor": "latest",
+    "react-select": "^1.2.1"
   }
 }
