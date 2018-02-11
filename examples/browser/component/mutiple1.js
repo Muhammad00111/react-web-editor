@@ -51,10 +51,10 @@ var MultiSelectField = createClass({
 			value.shift();
 			  this.setState({ value });
 			  console.log('You\'ve selected:', value);
-			  this.disable(2);
+			  this.disable(value, 2);
 		  } else{
 			  console.log(value);
-			this.enable(2);
+			this.enable(value, 2);
 		this.setState({ value });
 		setTimeout(() => {
 			console.log('You\'ve selected:', this.state);		

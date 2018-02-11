@@ -12,10 +12,18 @@ class CodeEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      code: '// type your code... \n',
+      code: this.props.codeValue,
     }
   }
-
+  componentDidMount() {
+    this.props.onRef(this)
+  }
+  componentWillUnmount() {
+    this.props.onRef(undefined)
+  }
+  method(v) {
+    this.setState({code:v.toString()});
+  }
   onChange = (newValue, e) => {
     console.log('onChange', newValue, e); // eslint-disable-line no-console
   }
@@ -34,6 +42,9 @@ class CodeEditor extends React.Component {
 
   changeBySetState = () => {
     this.setState({ code: '// code changed by setState! \n' });
+  }
+  changeBySetStateSelf = (data) => {
+    this.setState({ code: `// ${data}\n` });
   }
 
   render() {
@@ -132,17 +143,42 @@ class AnotherEditor extends React.Component { // eslint-disable-line react/no-mu
 }
 
 // eslint-disable-next-line react/no-multi-comp
-const App = () => (
-  <div>
-    <Header />
-    <h2>Monaco Editor Sample (controlled mode)</h2>
-    <CodeEditor />
-    <hr />
-    <h2>Another editor (uncontrolled mode)</h2>
-    <AnotherEditor />
-  </div>
-)
-
+// const App = () => (
+//   <div>
+//     <Header loadToEditor={this.loadToEditor} />
+//     <h2>Monaco Editor Sample (controlled mode)</h2>
+//     <CodeEditor />
+//     <hr />
+//     <h2>Another editor (uncontrolled mode)</h2>
+//     <AnotherEditor />
+//   </div>
+// )
+class App extends React.Component{
+  constructor(props){
+    super(props);
+    this.state={
+      code:'// type your code',
+    }
+  }
+  onClick = (data) => {
+    this.child.method(data) // do stuff
+  }
+  loadToEditor = (data) => {
+    console.log(data);
+    this.onClick(data);
+  }
+  render(){
+    return(
+      <div>
+          <Header loadtoEditor={this.loadToEditor} />
+          <h2>Monaco Editor Sample (controlled mode)</h2>
+          <CodeEditor onRef = {ref => (this.child = ref)} codeValue={this.state.code} />
+          <hr />
+          <h2>Another editor (uncontrolled mode)</h2>
+          <AnotherEditor />
+        </div>);
+  };
+}
 render(
   <App />,
   document.getElementById('root')

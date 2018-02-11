@@ -2,8 +2,7 @@
 // import React, { Component }  from 'react';
 // import { storiesOf } from '@kadira/storybook';
 // import MultiSelect from '@khanacademy/react-multi-select/dist/index';
-// import type { Option } from '@khanacademy/react-multi-select/dist/select-item.js'; 
-// // import type { Option } from '@khanacademy/react-multi-select';
+// import type { Option } from '@khanacademy/react-multi-select/dist/select-item'; 
 
 // const shortList = [
 //     {label: "Brian Genisio", value: 1},

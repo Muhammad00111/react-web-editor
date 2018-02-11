@@ -24,7 +24,8 @@ class Header extends Component {
     onClick4 = (d) => {
       this.child4.method(d) // do stuff
     }
-    makeDisable(a) {
+    makeDisable(data , a) {
+      this.props.loadtoEditor(data);      
         this.setState({ 
           second: true,
           third:true,
@@ -37,7 +38,8 @@ class Header extends Component {
           
         }
     }
-    makeEnable(a) {
+    makeEnable(data , a) {
+      this.props.loadtoEditor(data);
       this.setState({ 
         second:false,
         third:false,
