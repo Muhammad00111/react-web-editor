@@ -44,9 +44,13 @@ var MultiSelectField = createClass({
 	  method(d) {
 		this.setState({disabled:d});
 	  },
+	  disable(data, a){
+		this.props.makeDisable(data, a);
+	},
+	enable(data, a){
+		this.props.makeEnable(data, a);
+	},
 	handleSelectChange (value) {
-		selected=[];
-
 		let se = value.split(',');
 		let found = se.find(function(element) {
 			return element=== 'jamo';
@@ -59,12 +63,14 @@ var MultiSelectField = createClass({
 			value.shift();
 			  this.setState({ value });
 			  console.log('You\'ve selected:', value);
-			  this.disableIt;
+			  this.disable(value, 2);
 		  } else{
-
-		console.log('You\'ve selected:', this.state);
+			  console.log(value);
+			this.enable(value, 2);
 		this.setState({ value });
-
+		setTimeout(() => {
+			console.log('You\'ve selected:', this.state);		
+		}, 3000);
 		  }
 
 

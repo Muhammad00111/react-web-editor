@@ -22,7 +22,7 @@ class CodeEditor extends React.Component {
     this.props.onRef(undefined)
   }
   method(v) {
-    this.setState({code:v.toString()});
+    this.setState({code:`${v.toString()}`});
   }
   onChange = (newValue, e) => {
     console.log('onChange', newValue, e); // eslint-disable-line no-console
@@ -164,7 +164,6 @@ class App extends React.Component{
     this.child.method(data) // do stuff
   }
   loadToEditor = (data) => {
-    console.log(data);
     this.onClick(data);
   }
   render(){
@@ -183,3 +182,10 @@ render(
   <App />,
   document.getElementById('root')
 );
+
+
+
+// height: 3rem;
+// vertical-align: middle;
+// overflow: auto;
+// font-size: 12px;

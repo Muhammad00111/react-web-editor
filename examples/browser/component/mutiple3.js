@@ -41,15 +41,18 @@ var MultiSelectField = createClass({
 	  method(d) {
 		this.setState({disabled: d});
 	  },
+	  disable(data, a){
+		this.props.makeDisable(data, a);
+	},
+	enable(data, a){
+		this.props.makeEnable(data, a);
+	},
 	handleSelectChange (value) {
-		selected=[];
-
 		let se = value.split(',');
 		let found = se.find(function(element) {
 			return element=== 'jamo';
 		  });
 		  if(found!==undefined){
-			  alert();
 			  let value=[];
 			for (const i of FLAVOURS) {
 				value.push(i['value']);
@@ -57,11 +60,14 @@ var MultiSelectField = createClass({
 			value.shift();
 			  this.setState({ value });
 			  console.log('You\'ve selected:', value);
+			  this.disable(value, 4);
 		  } else{
-
-		console.log('You\'ve selected:', this.state);
+			  console.log(value);
+			this.enable(value, 4);
 		this.setState({ value });
-
+		setTimeout(() => {
+			console.log('You\'ve selected:', this.state);		
+		}, 3000);
 		  }
 
 

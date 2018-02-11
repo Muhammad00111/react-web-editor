@@ -25,6 +25,7 @@ class Header extends Component {
       this.child4.method(d) // do stuff
     }
     makeDisable(data , a) {
+      console.log(data+''+''+a);
       this.props.loadtoEditor(data);      
         this.setState({ 
           second: true,
@@ -35,7 +36,18 @@ class Header extends Component {
           this.onClick2(true);
           this.onClick3(true);
           this.onClick4(true);
-          
+        }
+        if(a===3){
+          console.log(a);
+          // this.onClick2(true);
+          this.onClick3(true);
+          this.onClick4(true);
+        }
+        if(a===4){
+          console.log(a);
+          // this.onClick2(true);
+          // this.onClick3(true);
+          this.onClick4(true);
         }
     }
     makeEnable(data , a) {
@@ -49,7 +61,16 @@ class Header extends Component {
         this.onClick2(false);
         this.onClick3(false);
         this.onClick4(false);
-        
+      }
+      if(a===3){
+        // this.onClick2(false);
+        this.onClick3(false);
+        this.onClick4(false);
+      }
+      if(a===4){
+        // this.onClick2(false);
+        // this.onClick3(false);
+        this.onClick4(false);
       }
   }
   render() {
@@ -72,7 +93,7 @@ class Header extends Component {
         <form style={{display:'flex'}}>
         <MultiSelect1 makeEnable={this.makeEnable.bind(this)} makeDisable={this.makeDisable.bind(this)} disable={this.state.first} />  
         <MultiSelect2 makeEnable={this.makeEnable.bind(this)} makeDisable={this.makeDisable.bind(this)} onRef={ref => (this.child2 = ref)} disable={this.state} />        
-        <MultiSelect3 onRef={ref => (this.child3 = ref)} disable={this.state.third} />        
+        <MultiSelect3 makeEnable={this.makeEnable.bind(this)} makeDisable={this.makeDisable.bind(this)} onRef={ref => (this.child3 = ref)} disable={this.state.third} />        
         <MultiSelect4 onRef={ref => (this.child4 = ref)} disable={this.state.forth} />                
         </form>
       </div>

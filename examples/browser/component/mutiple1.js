@@ -32,11 +32,11 @@ var MultiSelectField = createClass({
 			rtl: false,
 		};
 	},
-	disable(a){
-		this.props.makeDisable(a);
+	disable(data, a){
+		this.props.makeDisable(data, a);
 	},
-	enable(a){
-		this.props.makeEnable(a);
+	enable(data, a){
+		this.props.makeEnable(data, a);
 	},
 	handleSelectChange (value) {
 		let se = value.split(',');
