@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 // eslint-disable-next-line import/no-unresolved, import/extensions
 import MonacoEditor from 'react-monaco-editor';
 import Header from './component/header';
-import Multi from './component/mutiple';
+import Multi from './component/mul';
 /* eslint-enable import/no-extraneous-dependencies */
 
 // Using with webpack
