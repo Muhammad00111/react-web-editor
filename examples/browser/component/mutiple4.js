@@ -63,10 +63,10 @@ var MultiSelectField = createClass({
 			value.shift();
 			  this.setState({ value });
 			  console.log('You\'ve selected:', value);
-			  this.disable(value, 2);
+			  this.disable(value, 5);
 		  } else{
 			  console.log(value);
-			this.enable(value, 2);
+			this.enable(value, 5);
 		this.setState({ value });
 		setTimeout(() => {
 			console.log('You\'ve selected:', this.state);		
@@ -91,7 +91,7 @@ var MultiSelectField = createClass({
 		const options = crazy ? WHY_WOULD_YOU : FLAVOURS;
 		return (
 			<div className="section" >
-				<Select style={{width:'15rem'}}
+				<Select style={{width:'17rem'}}
 					closeOnSelect={!stayOpen}
 					disabled={disabled}
 					multi

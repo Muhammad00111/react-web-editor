@@ -84,7 +84,7 @@ var MultiSelectField = createClass({
 		const options = crazy ? WHY_WOULD_YOU : FLAVOURS;
 		return (
 			<div className="section" >
-				<Select style={{width:'15rem'}}
+				<Select style={{width:'17rem'}}
 					closeOnSelect={!stayOpen}
 					disabled={disabled}
 					multi

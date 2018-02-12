@@ -9,7 +9,7 @@ const FLAVOURS = [
 	{ label: 'Vanilla', value: 'vanilla' },
 	{ label: 'Strawberry', value: 'strawberry' },
 	{ label: 'Caramel', value: 'caramel' },
-	{ label: 'Cookies and Cream', value: 'cookiescream' },
+	{ label: 'Cookies', value: 'cookies' },
 	{ label: 'Peppermint', value: 'peppermint' },
 
 ];
@@ -79,7 +79,7 @@ var MultiSelectField = createClass({
 		const options = crazy ? WHY_WOULD_YOU : FLAVOURS;
 		return (
 			<div className="section" >
-				<Select style={{width:'15rem'}}
+				<Select style={{width:'17rem'}}
 					closeOnSelect={!stayOpen}
 					disabled={disabled}
 					multi

@@ -1,0 +1,6 @@
+.Select--multi .Select-multi-value-wrapper{
+    font-size: 13px;
+}
+select{
+    width: 17rem !important;
+}

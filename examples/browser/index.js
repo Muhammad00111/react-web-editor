@@ -21,8 +21,14 @@ class CodeEditor extends React.Component {
   componentWillUnmount() {
     this.props.onRef(undefined)
   }
-  method(v) {
-    this.setState({code:`${v.toString()}`});
+  method(v, id) {
+    // if(id==='r')
+    // {
+      this.setState({code:`${v.toString()}`});      
+    // } 
+    // else{
+      // this.setState({code:`${this.state.code},${v.toString()}`});      
+    // }
   }
   onChange = (newValue, e) => {
     console.log('onChange', newValue, e); // eslint-disable-line no-console
@@ -163,8 +169,8 @@ class App extends React.Component{
   onClick = (data) => {
     this.child.method(data) // do stuff
   }
-  loadToEditor = (data) => {
-    this.onClick(data);
+  loadToEditor = (data, id) => {
+    this.onClick(data, id);
   }
   render(){
     return(

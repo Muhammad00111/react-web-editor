@@ -26,7 +26,7 @@ class Header extends Component {
     }
     makeDisable(data , a) {
       console.log(data+''+''+a);
-      this.props.loadtoEditor(data);      
+      this.props.loadtoEditor(data,'r');      
         this.setState({ 
           second: true,
           third:true,
@@ -51,7 +51,7 @@ class Header extends Component {
         }
     }
     makeEnable(data , a) {
-      this.props.loadtoEditor(data);
+      this.props.loadtoEditor(data, 'a');
       this.setState({ 
         second:false,
         third:false,
@@ -94,7 +94,7 @@ class Header extends Component {
         <MultiSelect1 makeEnable={this.makeEnable.bind(this)} makeDisable={this.makeDisable.bind(this)} disable={this.state.first} />  
         <MultiSelect2 makeEnable={this.makeEnable.bind(this)} makeDisable={this.makeDisable.bind(this)} onRef={ref => (this.child2 = ref)} disable={this.state} />        
         <MultiSelect3 makeEnable={this.makeEnable.bind(this)} makeDisable={this.makeDisable.bind(this)} onRef={ref => (this.child3 = ref)} disable={this.state.third} />        
-        <MultiSelect4 onRef={ref => (this.child4 = ref)} disable={this.state.forth} />                
+        <MultiSelect4 makeEnable={this.makeEnable.bind(this)} makeDisable={this.makeDisable.bind(this)} onRef={ref => (this.child4 = ref)} disable={this.state.forth} />                
         </form>
       </div>
     </nav>    
