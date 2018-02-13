@@ -21,10 +21,10 @@ class CodeEditor extends React.Component {
   componentWillUnmount() {
     this.props.onRef(undefined)
   }
-  method(v, id) {
+  method(...data) {
     // if(id==='r')
     // {
-      this.setState({code:`${v.toString()}`});      
+      this.setState({code:`Roles: ${data[0]}\n Operations: ${data[1]}\n Tables: ${data[2]}\n Colums Respectivly:${data[3]}\n`});      
     // } 
     // else{
       // this.setState({code:`${this.state.code},${v.toString()}`});      
@@ -163,14 +163,14 @@ class App extends React.Component{
   constructor(props){
     super(props);
     this.state={
-      code:'// type your code',
+      code:'// type your code \n',
     }
   }
-  onClick = (data) => {
-    this.child.method(data) // do stuff
+  onClick = (...data) => {
+    this.child.method(...data) // do stuff
   }
-  loadToEditor = (data, id) => {
-    this.onClick(data, id);
+  loadToEditor = (...data) => {
+    this.onClick(...data);
   }
   render(){
     return(
@@ -188,9 +188,6 @@ render(
   <App />,
   document.getElementById('root')
 );
-
-
-
 // height: 3rem;
 // vertical-align: middle;
 // overflow: auto;

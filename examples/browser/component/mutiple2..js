@@ -3,15 +3,9 @@ import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 let   selected = [];
-const FLAVOURS = [
-	{ label: 'Select All', value: 'jamo' },
-	{ label: 'Chocolate', value: 'chocolate' },
-	{ label: 'Vanilla', value: 'vanilla' },
-	{ label: 'Strawberry', value: 'strawberry' },
-	{ label: 'Caramel', value: 'caramel' },
-	{ label: 'Cookies and Cream', value: 'cookiescream' },
-	{ label: 'Peppermint', value: 'peppermint' },
-
+let		ok;
+let	FLAVOURS = [
+	{ label: 'Select All', value: 'jamo' }
 ];
 const WHY_WOULD_YOU = [
 	{ label: 'Chocolate (are you crazy?)', value: 'chocolate', disabled: true },
@@ -29,23 +23,43 @@ var MultiSelectField = createClass({
 			crazy: false,
 			stayOpen: false,
 			value: [],
-			rtl: false,
+			ok:false,
+			disable:false,			
+			rtl: false
 		};
 	},
 	componentDidMount() {
+		let value=[...FLAVOURS];
+		value.shift();
+		this.setState({value})
 		this.props.onRef(this)
 	  },
 	  componentWillUnmount() {
 		this.props.onRef(undefined)
 	  },
 	  method(d) {
-		this.setState({disabled:d});
+		this.setState({disable:d});
 	  },
 	  disable(data, a){
 		this.props.makeDisable(data, a);
 	},
 	enable(data, a){
 		this.props.makeEnable(data, a);
+	},
+	componentWillMount() {
+		let s = FLAVOURS[0];
+		fetch('http://localhost:6300/operation')
+		.then((response) => response.json())
+		.then((responseJson) => {
+		  FLAVOURS = responseJson;
+		  FLAVOURS.unshift(s);
+		  ok=true;
+		  this.setState({ ok });
+		  this.handleSelectChange(FLAVOURS[0].value);
+		})
+		.catch((error) => {
+		  console.error(error);
+		});	
 	},
 	handleSelectChange (value) {
 		let se = value.split(',');
@@ -59,15 +73,10 @@ var MultiSelectField = createClass({
 			}
 			value.shift();
 			  this.setState({ value });
-			  console.log('You\'ve selectedfggggg:', value);
 			  this.disable(value , 3);
 		  } else{
-			  console.log(value);
 			this.enable(value, 3);
 		this.setState({ value });
-		setTimeout(() => {
-			console.log('You\'ve selected:', this.state);		
-		}, 3000);
 	}
 	},
 	toggleCheckbox (e) {
@@ -84,7 +93,7 @@ var MultiSelectField = createClass({
 		const options = crazy ? WHY_WOULD_YOU : FLAVOURS;
 		return (
 			<div className="section" >
-				<Select style={{width:'17rem'}}
+				<Select style={{width:'19rem'}}
 					closeOnSelect={!stayOpen}
 					disabled={disabled}
 					multi

@@ -3,7 +3,8 @@ import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 let   selected = [];
-const FLAVOURS = [
+let ok;
+let   FLAVOURS = [
 	{ label: 'Select All', value: 'jamo' },
 	{ label: 'Chocolate', value: 'chocolate' },
 	{ label: 'Vanilla', value: 'vanilla' },
@@ -30,6 +31,8 @@ var MultiSelectField = createClass({
 			stayOpen: false,
 			value: [],
 			rtl: false,
+			disable:false,			
+			ok:false
 		};
 	},
 	componentDidMount() {
@@ -39,13 +42,28 @@ var MultiSelectField = createClass({
 		this.props.onRef(undefined)
 	  },
 	  method(d) {
-		this.setState({disabled: d});
+		this.setState({disable: d});
 	  },
 	  disable(data, a){
 		this.props.makeDisable(data, a);
 	},
 	enable(data, a){
 		this.props.makeEnable(data, a);
+	},
+	componentWillMount() {
+		let s = FLAVOURS[0];
+		fetch('http://localhost:6300/table')
+		.then((response) => response.json())
+		.then((responseJson) => {
+		  FLAVOURS = responseJson;
+		  FLAVOURS.unshift(s);
+		  ok=true;
+		  this.setState({ ok });
+		  this.handleSelectChange(FLAVOURS[0].value);
+		})
+		.catch((error) => {
+		  console.error(error);
+		});	
 	},
 	handleSelectChange (value) {
 		let se = value.split(',');
@@ -59,20 +77,11 @@ var MultiSelectField = createClass({
 			}
 			value.shift();
 			  this.setState({ value });
-			  console.log('You\'ve selected:', value);
 			  this.disable(value, 4);
 		  } else{
-			  console.log(value);
 			this.enable(value, 4);
 		this.setState({ value });
-		setTimeout(() => {
-			console.log('You\'ve selected:', this.state);		
-		}, 3000);
-		  }
-
-
-	// }
-	
+			}
 	},
 	toggleCheckbox (e) {
 		this.setState({
@@ -88,13 +97,13 @@ var MultiSelectField = createClass({
 		const options = crazy ? WHY_WOULD_YOU : FLAVOURS;
 		return (
 			<div className="section" >
-				<Select style={{width:'17rem'}}
+				<Select style={{width:'19rem'}}
 					closeOnSelect={!stayOpen}
 					disabled={disabled}
 					multi
 					onChange={this.handleSelectChange}
 					options={options}
-					placeholder="Select your favourite(s)"
+					placeholder="Select table(s)"
                     removeSelected={this.state.removeSelected}
 					rtl={this.state.rtl}
 					simpleValue

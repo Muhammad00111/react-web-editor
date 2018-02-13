@@ -3,16 +3,10 @@ import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 let   selected = [];
-const FLAVOURS = [
-	{ label: 'Select All', value: 'jamo' },
-	{ label: 'Chocolate', value: 'chocolate' },
-	{ label: 'Vanilla', value: 'vanilla' },
-	{ label: 'Strawberry', value: 'strawberry' },
-	{ label: 'Caramel', value: 'caramel' },
-	{ label: 'Cookies and Cream', value: 'cookiescream' },
-	{ label: 'Peppermint', value: 'peppermint' },
-
+let FLAVOURS = [
+	{ label: 'Select all colums', value: 'jamo' }
 ];
+let s = FLAVOURS[0];
 const WHY_WOULD_YOU = [
 	{ label: 'Chocolate (are you crazy?)', value: 'chocolate', disabled: true },
 ].concat(FLAVOURS.slice(1));
@@ -28,21 +22,50 @@ var MultiSelectField = createClass({
 	getInitialState () {
 		return {
 			removeSelected: true,
-			disabled: this.props.disable,
+			disabled: false,
 			crazy: false,
 			stayOpen: false,
 			value: [],
 			rtl: false,
+			disable:false,
+
 		};
 	},
+	componentWillMount() {
+		console.log('component rendered will')
+	},
 	componentDidMount() {
-		this.props.onRef(this)
+		this.props.onRef(this);
+		console.log('component rendered');
 	  },
 	  componentWillUnmount() {
 		this.props.onRef(undefined)
 	  },
-	  method(d) {
-		this.setState({disabled:d});
+	  method(t,d) {
+		if( t===true || t===false){
+
+		}else{
+		fetch(`http://localhost:6300/colum`, {
+			method: 'post',
+			body:JSON.stringify({table:t}),
+			headers: new Headers({
+			  'Content-Type': 'application/json'
+			})
+		  })
+		  .then((response) => response.json())
+		  .then((responseJson) => {
+			FLAVOURS=responseJson;
+			FLAVOURS.unshift(s);
+			console.log(responseJson);
+			console.log(FLAVOURS);
+		this.setState({disable:d});	
+		this.handleSelectChange(FLAVOURS[0].value);		
+		  })
+		  .catch((error) => {
+			console.error(error);
+		  });
+		}
+		
 	  },
 	  disable(data, a){
 		this.props.makeDisable(data, a);
@@ -51,6 +74,7 @@ var MultiSelectField = createClass({
 		this.props.makeEnable(data, a);
 	},
 	handleSelectChange (value) {
+		console.log(value);
 		let se = value.split(',');
 		let found = se.find(function(element) {
 			return element=== 'jamo';
@@ -62,20 +86,11 @@ var MultiSelectField = createClass({
 			}
 			value.shift();
 			  this.setState({ value });
-			  console.log('You\'ve selected:', value);
 			  this.disable(value, 5);
 		  } else{
-			  console.log(value);
+			this.setState({ value });			
 			this.enable(value, 5);
-		this.setState({ value });
-		setTimeout(() => {
-			console.log('You\'ve selected:', this.state);		
-		}, 3000);
 		  }
-
-
-	// }
-	
 	},
 	toggleCheckbox (e) {
 		this.setState({
@@ -91,13 +106,13 @@ var MultiSelectField = createClass({
 		const options = crazy ? WHY_WOULD_YOU : FLAVOURS;
 		return (
 			<div className="section" >
-				<Select style={{width:'17rem'}}
+				<Select style={{width:'19rem'}}
 					closeOnSelect={!stayOpen}
 					disabled={disabled}
 					multi
 					onChange={this.handleSelectChange}
 					options={options}
-					placeholder="Select your favourite(s)"
+					placeholder="Select your colums"
                     removeSelected={this.state.removeSelected}
 					rtl={this.state.rtl}
 					simpleValue
