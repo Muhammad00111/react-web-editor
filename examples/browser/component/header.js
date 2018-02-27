@@ -22,7 +22,29 @@ class Header extends Component {
         };
     }
     loadToEdit(){
-      this.props.loadtoEditor(this.role,this.operation,this.table,this.colums);
+      fetch('http://localhost:6300/save', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          role: localStorage.getItem('role'),
+      operation: localStorage.getItem('operation'),
+      table: localStorage.getItem('table'),
+      colums: localStorage.getItem('colums'),
+      code: localStorage.getItem('code')
+      // this.props.loadtoEditor(this.role,this.operation,this.table,this.colums);
+        })
+      })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        alert(responseJson.toString());
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+      
     }
     onClick2 = (d) => {
       this.child2.method(d) // do stuff
@@ -41,22 +63,26 @@ class Header extends Component {
         });
         if(a===2){
           this.role=data;
+          localStorage.setItem('role',data);
           this.onClick2(true);
           this.onClick3(true);
           this.onClick4(true);
         }
         if(a===3){
           this.operation=data;
+          localStorage.setItem('operation',data);
           this.onClick3(true);
           this.onClick4(true);
         }
         if(a===4){
           this.table=data;
+          localStorage.setItem('table',data);          
           this.onClick4(this.table,true);
         } if(a===5) {
           let value;
           value=this.colums=data;
-        this.setState({value});      
+          localStorage.setItem('colums',data);          
+          this.setState({value});      
         }
 
     }
@@ -70,6 +96,7 @@ class Header extends Component {
       if(a===2){
         ar=data.split(',');        
         this.role=data;
+        localStorage.setItem('role',data);        
         this.onClick2(false);
         this.onClick3(false);
         // this.onClick4(false);
@@ -79,18 +106,21 @@ class Header extends Component {
       if(a===3){
         ar=data.split(',');        
         this.operation=data;
+        localStorage.setItem('operation',data);        
         this.onClick3(false);
         this.onClick4(false);
       }
       if(a===4){
         ar=data.split(',');        
         this.table=data;        
+        localStorage.setItem('table',data);          
         this.onClick4(this.table,false);
       }
       if(a===5) {
         let value=[];
         ar=data.split(',');
         value=this.colums=ar;
+        localStorage.setItem('colums',data);        
         this.setState({value});        
       }
   }

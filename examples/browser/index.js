@@ -15,6 +15,7 @@ class CodeEditor extends React.Component {
       code: this.props.codeValue,
     }
   }
+
   componentDidMount() {
     this.props.onRef(this)
   }
@@ -31,6 +32,7 @@ class CodeEditor extends React.Component {
     // }
   }
   onChange = (newValue, e) => {
+    localStorage.setItem('code', newValue);
     console.log('onChange', newValue, e); // eslint-disable-line no-console
   }
 
